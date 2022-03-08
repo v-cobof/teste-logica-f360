@@ -22,7 +22,7 @@ namespace teste_logica
         }
         */
 
-		internal static string removeSpecialCharacters(string s)
+		internal static string RemoveCaracteresEspeciais(string s)
 		{
 
 			Dictionary<string, string> Replacements = new Dictionary<string, string>()
@@ -45,7 +45,7 @@ namespace teste_logica
 		}
 
 		
-		internal static List<string> readTextFile()
+		private static List<string> LeArquivoDeTexto()
         {
 
 			string filePath = @"../../../resources/ExtratoEletronicoGetNet.txt";
@@ -63,9 +63,9 @@ namespace teste_logica
 
 		}
 
-		internal static List<string[]> returnValues()
+		internal static List<string[]> RetornaVendaEParcelas()
         {
-			List<string> data = new (readTextFile());
+			List<string> data = new(LeArquivoDeTexto());
 
 			List<string[]> results = new();
 
@@ -84,7 +84,8 @@ namespace teste_logica
 				results.Add(pairOfResults);
             }
 
-			
+			// Teste da saída
+			/*
 			Console.WriteLine("{");
 			foreach (string[] pair in results)
             {
@@ -101,10 +102,45 @@ namespace teste_logica
 
 			}
 			Console.WriteLine("}");
-			
+			*/
+
 			return results;
 			
         }
+
+		internal static double CalculaTaxa(double venda, double taxa)			
+        {
+			return (venda / taxa) / 100;
+        }
+
+		internal static double[] CalculaMediaEMediana(double[] numeros)
+        {
+			double[] result = new double[2];
+			double aux;
+			int auxInt;
+
+			result[0] = numeros.Average();
+			Array.Sort(numeros);
+
+			if (numeros.Length % 2 == 0)
+            {
+				auxInt = numeros.Length / 2;
+
+				result[1] = (numeros[auxInt] + numeros[auxInt - 1]) / 2;
+
+			} 
+			else if(numeros.Length % 2 != 0)
+            {
+				aux = numeros.Length / 2;
+				auxInt = (int)Math.Ceiling(aux);
+
+				result[1] = numeros[auxInt];
+			}
+
+			return result;
+        }
+
+
 
 	}
 }
