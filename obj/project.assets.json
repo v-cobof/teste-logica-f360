@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Global\\Desktop\\1.VictorCobo\\teste-logica\\teste-logica\\teste-logica.csproj",
+      "projectUniqueName": "C:\\Users\\Global\\Desktop\\1.VictorCobo\\c-sharp\\teste-logica-f360\\teste-logica.csproj",
       "projectName": "teste-logica",
-      "projectPath": "C:\\Users\\Global\\Desktop\\1.VictorCobo\\teste-logica\\teste-logica\\teste-logica.csproj",
+      "projectPath": "C:\\Users\\Global\\Desktop\\1.VictorCobo\\c-sharp\\teste-logica-f360\\teste-logica.csproj",
       "packagesPath": "C:\\Users\\Global\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Global\\Desktop\\1.VictorCobo\\teste-logica\\teste-logica\\obj\\",
+      "outputPath": "C:\\Users\\Global\\Desktop\\1.VictorCobo\\c-sharp\\teste-logica-f360\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Global\\AppData\\Roaming\\NuGet\\NuGet.Config",

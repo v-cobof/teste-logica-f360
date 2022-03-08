@@ -40,17 +40,18 @@ namespace teste_logica
 				s = s.Replace(toReplace, Replacements[toReplace]);
 			}
 
-			Console.WriteLine(s);
+			//Console.WriteLine(s);
 			return s;
 		}
 
 		
 		internal static List<string> readTextFile()
         {
-			string filePath = @"C:\Users\Global\Desktop\1.VictorCobo\teste-logica\teste-logica\ExtratoEletronicoGetNet.txt";
+
+			string filePath = @"../../../resources/ExtratoEletronicoGetNet.txt";
 
 			string text = File.ReadAllText(filePath);
-			//Console.WriteLine(text);
+			
 
 			string[] lines = File.ReadAllLines(filePath);
 
@@ -58,40 +59,34 @@ namespace teste_logica
 
 			startsWithOne = lines.Where(x => x.StartsWith('1')).ToList();
 
-			/*foreach (string line in startsWithOne)
-            {
-				Console.WriteLine(line);
-            }*/
-
 			return startsWithOne;
 
 		}
 
-		internal static List<List<string>> returnValues()
+		internal static List<string[]> returnValues()
         {
-			List<string> data = new List<string>(readTextFile());
+			List<string> data = new (readTextFile());
 
-			//string[] pairOfResults = new string[2];
-
-			List<string> pairOfResults = new List<string>();
-
-			List<List<string>> results = new List<List<string>>();
+			List<string[]> results = new();
 
 			string valorVenda, qtdParcelas;
 
 			foreach(string line in data)
             {
+				string[] pairOfResults = new string[2];
+
 				valorVenda = line.Substring(85, 11);
 				qtdParcelas = line.Substring(173, 2);
 
-				pairOfResults.Add(valorVenda);
-				pairOfResults.Add(qtdParcelas);
+				pairOfResults[0] = valorVenda;
+				pairOfResults[1] = qtdParcelas;
 
 				results.Add(pairOfResults);
             }
 
+			
 			Console.WriteLine("{");
-			foreach (List<string> pair in results)
+			foreach (string[] pair in results)
             {
 				
 				Console.Write("[");
@@ -106,7 +101,7 @@ namespace teste_logica
 
 			}
 			Console.WriteLine("}");
-
+			
 			return results;
 			
         }
