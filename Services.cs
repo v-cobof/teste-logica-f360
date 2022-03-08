@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace teste_logica
 {
-	internal class Services
+	public class Services
 	{
 		/*
         public static string removeSpecialCharacters(string text) {
@@ -22,7 +22,7 @@ namespace teste_logica
         }
         */
 
-		internal static string RemoveCaracteresEspeciais(string s)
+		public static string RemoveCaracteresEspeciais(string s)
 		{
 
 			Dictionary<string, string> Replacements = new Dictionary<string, string>()
@@ -44,34 +44,20 @@ namespace teste_logica
 			return s;
 		}
 
-		
-		private static List<string> LeArquivoDeTexto()
+
+		public static List<string[]> RetornaVendaEParcelas()
         {
+			string[] lines = File.ReadAllLines(@"../../../resources/ExtratoEletronicoGetNet.txt");
 
-			string filePath = @"../../../resources/ExtratoEletronicoGetNet.txt";
+			List<string> dados = new();
 
-			string text = File.ReadAllText(filePath);
-			
-
-			string[] lines = File.ReadAllLines(filePath);
-
-			List<string> startsWithOne = new List<string>();
-
-			startsWithOne = lines.Where(x => x.StartsWith('1')).ToList();
-
-			return startsWithOne;
-
-		}
-
-		internal static List<string[]> RetornaVendaEParcelas()
-        {
-			List<string> data = new(LeArquivoDeTexto());
+			dados = lines.Where(x => x.StartsWith('1')).ToList();
 
 			List<string[]> results = new();
 
 			string valorVenda, qtdParcelas;
 
-			foreach(string line in data)
+			foreach(string line in dados)
             {
 				string[] pairOfResults = new string[2];
 
@@ -85,7 +71,7 @@ namespace teste_logica
             }
 
 			// Teste da saída
-			/*
+			
 			Console.WriteLine("{");
 			foreach (string[] pair in results)
             {
@@ -102,18 +88,18 @@ namespace teste_logica
 
 			}
 			Console.WriteLine("}");
-			*/
+			// ----------------------------------
 
 			return results;
 			
         }
 
-		internal static double CalculaTaxa(double venda, double taxa)			
+		public static double CalculaTaxa(double venda, double taxa)			
         {
 			return (venda / taxa) / 100;
         }
 
-		internal static double[] CalculaMediaEMediana(double[] numeros)
+		public static double[] CalculaMediaEMediana(double[] numeros)
         {
 			double[] result = new double[2];
 			double aux;
@@ -140,7 +126,97 @@ namespace teste_logica
 			return result;
         }
 
+		private static bool EhVogal(char charValue)
+		{
+			char[] vowelList = { 'a', 'e', 'i', 'o', 'u' };
 
+			char casedChar = char.ToLower(charValue);
+
+			foreach (char vowel in vowelList)
+			{
+				if (vowel == casedChar)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public static string InverteEAddEspacoAposVogal(string palavra)
+        {
+            char[] array = palavra.ToCharArray();
+			Array.Reverse(array);
+
+			List<char> list = array.ToList();
+			
+			for (int i = 0; i < list.Count; i++)
+            {
+                if (EhVogal(list[i]))
+                {
+					list.Insert(i + 1, ' ');
+                }
+            }
+
+			array = list.ToArray();
+
+			return new string(array);
+        }
+
+
+		private static List<List<string>> RemoverEspacos(string filePath)
+        {
+			List<string> dados = (File.ReadAllLines(filePath)).ToList();
+			List<List<string>> dadosSemEspaco = new();
+
+			foreach (string s in dados)
+			{
+				List<string> parts = new(s.Split(" "));
+				parts.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+				dadosSemEspaco.Add(parts);
+				
+			}
+			return dadosSemEspaco;
+		}
+
+		public static List<double> ConverterBytesEmMB()
+        {
+
+			List<List<string>> dados = RemoverEspacos(@"../../../resources/usuarios.txt");
+			List<double> valoresEmMB = new();
+
+			foreach(List<string> linha in dados)
+            {
+				double valorEmBytes = Convert.ToDouble(linha[1]);
+				
+				valoresEmMB.Add(valorEmBytes / 1048576);
+            }
+
+			return valoresEmMB;
+        }
+
+		public static List<double> CalcularPorcentagem()
+        {
+			List<double> valores = ConverterBytesEmMB();
+			List<double> porcentagens = new();
+
+			double soma = valores.Sum();
+
+			foreach(double valor in valores)
+            {
+				porcentagens.Add(valor / soma);
+            }
+
+			return porcentagens;
+		}
+
+		/*public static string Gerarrelatorio()
+        {
+
+        }*/
+
+		
 
 	}
 }
