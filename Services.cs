@@ -10,19 +10,7 @@ namespace teste_logica
 {
 	public class Services
 	{
-		/*
-        public static string removeSpecialCharacters(string text) {
-
-            text = text.Replace('É', 'E');
-            text = text.Replace('.', ' ').Trim();
-            text = text.Replace('-', ' ').Trim();
-            text = text.Replace('%', ' ').Trim();
-            text = text.Replace(',', ' ').Trim();
-
-            return text;
-        }
-        */
-
+		
 		public static string RemoveCaracteresEspeciais(string s)
 		{
 
@@ -41,7 +29,7 @@ namespace teste_logica
 				s = s.Replace(toReplace, Replacements[toReplace]);
 			}
 
-			//Console.WriteLine(s);
+			
 			return s;
 		}
 
@@ -72,7 +60,7 @@ namespace teste_logica
             }
 
 			// Teste da saída
-			
+			/*
 			Console.WriteLine("{");
 			foreach (string[] pair in results)
             {
@@ -89,8 +77,8 @@ namespace teste_logica
 
 			}
 			Console.WriteLine("}");
-			// ----------------------------------
-
+			*/
+			
 			return results;
 			
         }
@@ -212,14 +200,12 @@ namespace teste_logica
 			return porcentagens;
 		}
 
-		public static void GerarRelatorio()
+		private static void GerarRelatorio(List<List<string>> matriz, List<double> valores, List<double> porcentagens, string formato, int nPessoas = 0)
         {
-			string fileName = "relatorio";
-			string filePath = @$"../../../reports/{fileName}.txt";
+			nPessoas = (nPessoas == 0 || nPessoas > valores.Count) ? valores.Count : nPessoas;
 
-			var matriz = ExtrairDados(@"../../../resources/usuarios.txt");
-			List<double> valores = ConverterBytesEmMB();
-			List<double> porcentagens = CalcularPorcentagem();
+			string fileName = "relatorio";
+			string filePath = @$"../../../reports/{fileName}.{formato}";
 
 			// o padding que eu coloco depende também do tamanho da string, e do espaço que está entre as chaves
 			string colunasRelatorio = String.Format("{0,-4} {1,-14} {2,-20} {3,-10}", "Nr.", "Usuário", "Espaço utilizado", "% do uso");
@@ -235,38 +221,55 @@ namespace teste_logica
 
 			string[] rodapeRelatorio = new string[2];
 
-			for(int i = 0; i < valores.Count; i++)
+			for(int i = 0; i < nPessoas; i++)
             {
 				conteudoRelatorio[i] = String.Format("{0, -4} {1,-9} {2, 13:n2} {3, 2} {4, 16:p2}", i+1, matriz[i][0], valores[i], "MB", porcentagens[i]);
             }
 
-            rodapeRelatorio[0] = $"\nEspaço total ocupado: {valores.Sum():n2} MB";
-			rodapeRelatorio[1] = $"Espaço médio ocupado: {valores.Average():n2} MB";
+            rodapeRelatorio[0] = $"\nEspaço total ocupado: {valores.Take(nPessoas).Sum():n2} MB";
+			rodapeRelatorio[1] = $"Espaço médio ocupado: {valores.Take(nPessoas).Average():n2} MB";
 
 			string[] relatorio = cabecalhoRelatorio.Concat(conteudoRelatorio).Concat(rodapeRelatorio).ToArray();
 			
 			File.WriteAllLines(filePath, relatorio);
 		}
 
+		public static void GerarRelatorioPadrao()
+        {
+			GerarRelatorio(ExtrairDados(@"../../../resources/usuarios.txt"), ConverterBytesEmMB(), CalcularPorcentagem(), "txt");
+        }
+
 
 		public static void GerarRelatorioOrdenadoPorUso()
         {
+			var matriz = ExtrairDados(@"../../../resources/usuarios.txt");
+			List<double> valores = ConverterBytesEmMB();
+			List<double> porcentagens = CalcularPorcentagem();
 
-        }
 
-		public static void GerarRelatorioNPrimeiros()
-        {
+			matriz = matriz.OrderByDescending(x => x.ElementAt(1).Length).ThenByDescending(x => x.ElementAt(1)).ToList();
+			valores = valores.OrderByDescending(x => x).ToList();
+			porcentagens = porcentagens.OrderByDescending(x => x).ToList();
 
-        }
+			GerarRelatorio(matriz, valores, porcentagens, "txt");
 
-		public static void GerarRelatorioHTML()
-        {
-			string fileName = "relatorioHTML";
-			string filePath = @$"../../../reports/{fileName}.html";
-
-			File.WriteAllText(filePath, @"<html><body>Hello World</body></html>");
 		}
 
+		public static void GerarRelatorioNPrimeiros(int n)
+        {
+			GerarRelatorio(ExtrairDados(@"../../../resources/usuarios.txt"), ConverterBytesEmMB(), CalcularPorcentagem(), "txt", n);
+		}
+
+		// não finalizado
+		public static void GerarRelatorioHTML()
+        {
+			string fileName = "relatorio";
+			string filePath = @$"../../../reports/{fileName}.html";
+
+			GerarRelatorio(ExtrairDados(@"../../../resources/usuarios.txt"), ConverterBytesEmMB(), CalcularPorcentagem(), "html");
+		}
+
+		// não iniciado
 		public static void LerUsuariosEspacoConsumido()
         {
 
