@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Web;
 
+
 namespace teste_logica
 {
 	public class Services
@@ -153,9 +154,9 @@ namespace teste_logica
         }
 
 
-		private static List<List<string>> ExtrairDados(string filePath)
+		private static List<List<string>> ExtrairDados(string caminhoArquivo)
         {
-			List<string> dados = (File.ReadAllLines(filePath)).ToList();
+			List<string> dados = (File.ReadAllLines(caminhoArquivo)).ToList();
 			List<List<string>> dadosSemEspaco = new();
 
 			foreach (string s in dados)
@@ -169,10 +170,10 @@ namespace teste_logica
 			return dadosSemEspaco;
 		}
 
-		public static List<double> ConverterBytesEmMB()
+		public static List<double> ConverterBytesEmMB(string caminhoArquivo)
         {
-
-			List<List<string>> dados = ExtrairDados(@"../../../resources/usuarios.txt");
+			
+			List<List<string>> dados = ExtrairDados(caminhoArquivo);
 			List<double> valoresEmMB = new();
 
 			foreach(List<string> linha in dados)
@@ -185,9 +186,9 @@ namespace teste_logica
 			return valoresEmMB;
         }
 
-		public static List<double> CalcularPorcentagem()
+		public static List<double> CalcularPorcentagem(string caminhoArquivo)
         {
-			List<double> valores = ConverterBytesEmMB();
+			List<double> valores = ConverterBytesEmMB(caminhoArquivo);
 			List<double> porcentagens = new();
 
 			double soma = valores.Sum();
@@ -212,7 +213,7 @@ namespace teste_logica
 
 			string[] cabecalhoRelatorio =
 			{
-				"ACME Inc.			Uso do espaço em disco pelos usuários",
+				"ACME Inc.           Uso do espaço em disco pelos usuários",
 				"-------------------------------------------------------------------",
 				$"{colunasRelatorio}\n"
 			};
@@ -226,54 +227,101 @@ namespace teste_logica
 				conteudoRelatorio[i] = String.Format("{0, -4} {1,-9} {2, 13:n2} {3, 2} {4, 16:p2}", i+1, matriz[i][0], valores[i], "MB", porcentagens[i]);
             }
 
-            rodapeRelatorio[0] = $"\nEspaço total ocupado: {valores.Take(nPessoas).Sum():n2} MB";
+			string espaco = formato == "html" ? "\n\n" : "\n";
+
+            rodapeRelatorio[0] = $"{espaco}Espaço total ocupado: {valores.Take(nPessoas).Sum():n2} MB";
 			rodapeRelatorio[1] = $"Espaço médio ocupado: {valores.Take(nPessoas).Average():n2} MB";
 
 			string[] relatorio = cabecalhoRelatorio.Concat(conteudoRelatorio).Concat(rodapeRelatorio).ToArray();
-			
-			File.WriteAllLines(filePath, relatorio);
+
+			if(formato == "html")
+            {
+				for(int i = 0; i < relatorio.Length; i++)
+                {
+					relatorio[i] = "<pre>" + relatorio[i] + "</pre>";
+                }
+            }
+
+            File.WriteAllLines(filePath, relatorio);
 		}
 
-		public static void GerarRelatorioPadrao()
+		
+
+		public static void GerarRelatorioCompleto(string caminhoArquivo, string formato, int nPessoas = 0)
         {
-			GerarRelatorio(ExtrairDados(@"../../../resources/usuarios.txt"), ConverterBytesEmMB(), CalcularPorcentagem(), "txt");
-        }
 
+			GerarRelatorio(ExtrairDados(caminhoArquivo), ConverterBytesEmMB(caminhoArquivo), CalcularPorcentagem(caminhoArquivo), formato, nPessoas);
 
-		public static void GerarRelatorioOrdenadoPorUso()
+		}
+
+		public static void GerarRelatorioCompletoOrdenado(string caminhoArquivo, string formato, int nPessoas = 0)
         {
-			var matriz = ExtrairDados(@"../../../resources/usuarios.txt");
-			List<double> valores = ConverterBytesEmMB();
-			List<double> porcentagens = CalcularPorcentagem();
 
+			var matriz = ExtrairDados(caminhoArquivo);
+			List<double> valores = ConverterBytesEmMB(caminhoArquivo);
+			List<double> porcentagens = CalcularPorcentagem(caminhoArquivo);
 
 			matriz = matriz.OrderByDescending(x => x.ElementAt(1).Length).ThenByDescending(x => x.ElementAt(1)).ToList();
 			valores = valores.OrderByDescending(x => x).ToList();
 			porcentagens = porcentagens.OrderByDescending(x => x).ToList();
 
-			GerarRelatorio(matriz, valores, porcentagens, "txt");
+			GerarRelatorio(matriz, valores, porcentagens, formato, nPessoas);
+		}
+
+		private static long DirSize(DirectoryInfo d)
+		{
+			
+			long size = 0;
+
+			try
+			{
+				FileInfo[] fis = d.GetFiles();
+				foreach (FileInfo fi in fis)
+				{
+					size += fi.Length;
+				}
+				// Add subdirectory sizes.
+				DirectoryInfo[] dis = d.GetDirectories();
+				foreach (DirectoryInfo di in dis)
+				{
+					size += DirSize(di);
+				}
+				
+			}
+			catch (UnauthorizedAccessException e)
+			{
+				Console.WriteLine(e);
+			}
+
+			return size;
+
 
 		}
 
-		public static void GerarRelatorioNPrimeiros(int n)
-        {
-			GerarRelatorio(ExtrairDados(@"../../../resources/usuarios.txt"), ConverterBytesEmMB(), CalcularPorcentagem(), "txt", n);
-		}
-
-		// não finalizado
-		public static void GerarRelatorioHTML()
-        {
-			string fileName = "relatorio";
-			string filePath = @$"../../../reports/{fileName}.html";
-
-			GerarRelatorio(ExtrairDados(@"../../../resources/usuarios.txt"), ConverterBytesEmMB(), CalcularPorcentagem(), "html");
-		}
-
-		// não iniciado
 		public static void LerUsuariosEspacoConsumido()
         {
 
-        }
+			string fileName = "usuariosSistema";
+			string filePath = @$"../../../resources/{fileName}.txt";
+
+			DirectoryInfo directoryInfo = new DirectoryInfo(@"C:\Users");
+
+			DirectoryInfo[] dirInfos = directoryInfo.GetDirectories();
+
+			dirInfos = dirInfos.Where(x => x.Name != "Default User" && x.Name != "All Users" && x.Name != "Usuário Padrão" && x.Name != "Todos os Usuários").ToArray();
+
+			string[] users = new string[dirInfos.Length];
+
+			for (int i = 0; i < dirInfos.Length; i++)
+			{
+
+
+				users[i] = string.Format("{0, -10} {1, 10}", dirInfos[i].Name, dirInfos[i].EnumerateFiles().Sum(file => file.Length));
+				Console.WriteLine("{0, -10} {1, 10}", dirInfos[i].Name, DirSize(dirInfos[i]));
+			}
+
+			File.WriteAllLines(filePath, users);
+		}
 
 
 	}

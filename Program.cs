@@ -6,12 +6,16 @@ namespace teste_logica
     {
         static void Main(string[] args)
         {
+            string usuarios = @"../../../resources/usuarios.txt";
 
+            Services.LerUsuariosEspacoConsumido();
 
-            //Services.GerarRelatorioOrdenadoPorUso();
+            string usuariosSistema = @"../../../resources/usuariosSistema.txt";
 
-            Services.GerarRelatorioPadrao();
+            Services.GerarRelatorioCompleto(usuariosSistema, "txt");
+            //Services.GerarRelatorioCompleto(usuarios, "txt", 2);
 
+            //Services.GerarRelatorioCompletoOrdenado(usuarios, "txt");
         }
     }
 }
