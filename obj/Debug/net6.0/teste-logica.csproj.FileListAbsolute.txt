@@ -28,3 +28,18 @@ C:\Users\Global\Desktop\1.VictorCobo\c-sharp\teste-logica-f360\obj\Debug\net6.0\
 C:\Users\Global\Desktop\1.VictorCobo\c-sharp\teste-logica-f360\obj\Debug\net6.0\teste-logica.pdb
 C:\Users\Global\Desktop\1.VictorCobo\c-sharp\teste-logica-f360\obj\Debug\net6.0\teste-logica.genruntimeconfig.cache
 C:\Users\Global\Desktop\1.VictorCobo\c-sharp\teste-logica-f360\obj\Debug\net6.0\ref\teste-logica.dll
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\bin\Debug\net6.0\teste-logica.exe
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\bin\Debug\net6.0\teste-logica.deps.json
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\bin\Debug\net6.0\teste-logica.runtimeconfig.json
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\bin\Debug\net6.0\teste-logica.dll
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\bin\Debug\net6.0\ref\teste-logica.dll
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\bin\Debug\net6.0\teste-logica.pdb
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\obj\Debug\net6.0\teste-logica.csproj.AssemblyReference.cache
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\obj\Debug\net6.0\teste-logica.GeneratedMSBuildEditorConfig.editorconfig
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\obj\Debug\net6.0\teste-logica.AssemblyInfoInputs.cache
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\obj\Debug\net6.0\teste-logica.AssemblyInfo.cs
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\obj\Debug\net6.0\teste-logica.csproj.CoreCompileInputs.cache
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\obj\Debug\net6.0\teste-logica.dll
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\obj\Debug\net6.0\ref\teste-logica.dll
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\obj\Debug\net6.0\teste-logica.pdb
+D:\A. Aulas_e_Projetos\Dev_Projects\ws-dotnet\teste-logica-f360\obj\Debug\net6.0\teste-logica.genruntimeconfig.cache

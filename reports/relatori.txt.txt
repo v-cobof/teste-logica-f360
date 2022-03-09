@@ -1,0 +1,3 @@
+ACME Inc.			Uso do espaço em disco pelos usuários
+-------------------------------------------------------------------
+Nr.                  Usuário              Espaço utilizado     % do uso            

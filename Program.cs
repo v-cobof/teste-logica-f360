@@ -31,12 +31,14 @@ namespace teste_logica
 
             //Console.WriteLine("|" + Services.InverteEAddEspacoAposVogal("Animal") + "|");
 
-            List<double> val = Services.CalcularPorcentagem();
+            /*List<double> val = Services.CalcularPorcentagem();
 
             foreach(double value in val)
             {
                 Console.WriteLine(value.ToString("p2"));
-            }
+            }*/
+
+            Services.GerarRelatorio();
 
         }
     }

@@ -211,10 +211,45 @@ namespace teste_logica
 			return porcentagens;
 		}
 
-		/*public static string Gerarrelatorio()
+		public static void GerarRelatorio()
         {
+			string fileName = "relatorio.txt";
+			string filePath = @$"../../../reports/{fileName}.txt";
 
-        }*/
+			var matriz = RemoverEspacos(@"../../../resources/usuarios.txt");
+			List<double> valores = ConverterBytesEmMB();
+			List<double> porcentagens = CalcularPorcentagem();
+
+			
+
+			// o padding que eu coloco depende também do tamanho da string, e do espaço que está entre as chaves
+			string colunasRelatorio = String.Format("{0,-4} {1,-14} {2,-20} {3,-10}", "Nr.", "Usuário", "Espaço utilizado", "% do uso");
+
+			string[] cabecalhoRelatorio =
+			{
+				"ACME Inc.			Uso do espaço em disco pelos usuários",
+				"-------------------------------------------------------------------",
+				$"{colunasRelatorio}\n"
+			};
+
+			string[] conteudoRelatorio = new string[valores.Count];
+
+			string[] rodapeRelatorio = new string[2];
+
+			for(int i = 0; i < valores.Count; i++)
+            {
+				conteudoRelatorio[i] = String.Format("{0,-4} {1,-14} {2, -8:n2} {3, -12} {4,-10:p2}", i+1, matriz[i][0], valores[i], "MB", porcentagens[i]);
+            }
+
+            rodapeRelatorio[0] = $"\nEspaço total ocupado: {valores.Sum():n2} MB";
+			rodapeRelatorio[1] = $"Espaço médio ocupado: {valores.Average():n2} MB";
+
+			string[] relatorio = cabecalhoRelatorio.Concat(conteudoRelatorio).Concat(rodapeRelatorio).ToArray();
+			
+
+			File.WriteAllLines(filePath, relatorio);
+
+		}
 
 		
 
