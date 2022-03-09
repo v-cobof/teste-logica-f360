@@ -40,6 +40,8 @@ namespace teste_logica
 
             Services.GerarRelatorio();
 
+            Services.GerarRelatorioHTML();
+
         }
     }
 }

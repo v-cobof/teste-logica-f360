@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using System.Web;
 
 namespace teste_logica
 {
@@ -164,7 +165,7 @@ namespace teste_logica
         }
 
 
-		private static List<List<string>> RemoverEspacos(string filePath)
+		private static List<List<string>> ExtrairDados(string filePath)
         {
 			List<string> dados = (File.ReadAllLines(filePath)).ToList();
 			List<List<string>> dadosSemEspaco = new();
@@ -183,7 +184,7 @@ namespace teste_logica
 		public static List<double> ConverterBytesEmMB()
         {
 
-			List<List<string>> dados = RemoverEspacos(@"../../../resources/usuarios.txt");
+			List<List<string>> dados = ExtrairDados(@"../../../resources/usuarios.txt");
 			List<double> valoresEmMB = new();
 
 			foreach(List<string> linha in dados)
@@ -213,14 +214,12 @@ namespace teste_logica
 
 		public static void GerarRelatorio()
         {
-			string fileName = "relatorio.txt";
+			string fileName = "relatorio";
 			string filePath = @$"../../../reports/{fileName}.txt";
 
-			var matriz = RemoverEspacos(@"../../../resources/usuarios.txt");
+			var matriz = ExtrairDados(@"../../../resources/usuarios.txt");
 			List<double> valores = ConverterBytesEmMB();
 			List<double> porcentagens = CalcularPorcentagem();
-
-			
 
 			// o padding que eu coloco depende também do tamanho da string, e do espaço que está entre as chaves
 			string colunasRelatorio = String.Format("{0,-4} {1,-14} {2,-20} {3,-10}", "Nr.", "Usuário", "Espaço utilizado", "% do uso");
@@ -238,7 +237,7 @@ namespace teste_logica
 
 			for(int i = 0; i < valores.Count; i++)
             {
-				conteudoRelatorio[i] = String.Format("{0,-4} {1,-14} {2, -8:n2} {3, -12} {4,-10:p2}", i+1, matriz[i][0], valores[i], "MB", porcentagens[i]);
+				conteudoRelatorio[i] = String.Format("{0, -4} {1,-9} {2, 13:n2} {3, 2} {4, 16:p2}", i+1, matriz[i][0], valores[i], "MB", porcentagens[i]);
             }
 
             rodapeRelatorio[0] = $"\nEspaço total ocupado: {valores.Sum():n2} MB";
@@ -246,12 +245,33 @@ namespace teste_logica
 
 			string[] relatorio = cabecalhoRelatorio.Concat(conteudoRelatorio).Concat(rodapeRelatorio).ToArray();
 			
-
 			File.WriteAllLines(filePath, relatorio);
-
 		}
 
-		
+
+		public static void GerarRelatorioOrdenadoPorUso()
+        {
+
+        }
+
+		public static void GerarRelatorioNPrimeiros()
+        {
+
+        }
+
+		public static void GerarRelatorioHTML()
+        {
+			string fileName = "relatorioHTML";
+			string filePath = @$"../../../reports/{fileName}.html";
+
+			File.WriteAllText(filePath, @"<html><body>Hello World</body></html>");
+		}
+
+		public static void LerUsuariosEspacoConsumido()
+        {
+
+        }
+
 
 	}
 }
