@@ -7,41 +7,39 @@ namespace teste_logica
         static void Main(string[] args)
         {
 
+            //---- Teste para a 2 ----- //
 
-
-            /*Services.removeSpecialCharacters("DINHEIRO.");
-            Services.removeSpecialCharacters(".A VISTA,");
-            Services.removeSpecialCharacters("PARCELADO-");
-            Services.removeSpecialCharacters("DBT%");
-            Services.removeSpecialCharacters("CRÉDITO A VISTA");
-            Services.removeSpecialCharacters("DÉBITO");*/
-
-            //Services.RetornaVendaEParcelas();
-
-            //Console.WriteLine(Services.retornaTaxa(150, 15).ToString("p0"));
-
-            /*double[] n = {5, 0, 16, 10 , 9, 9, 9, 5, 16, 16, 16, 16, 16};
-
-            double[] r = Services.CalculaMediaEMediana(n);
-
-            foreach(double v in r)
+            /*
+            var results = Services.RetornaVendaEParcelas();
+			Console.WriteLine("{");
+			foreach (string[] pair in results)
             {
-                Console.WriteLine(v);
-            }*/
+				
+				Console.Write("[");
+				Console.Write(pair.ElementAt(0));
+				Console.Write(" , ");
+				Console.Write(pair.ElementAt(1));
+				Console.Write("]");
+				
+				Console.WriteLine(" , ");
+			}
+			Console.WriteLine("}");
+			*/
 
-            //Console.WriteLine("|" + Services.InverteEAddEspacoAposVogal("Animal") + "|");
+            // ----- Teste para a 6 ----- //
 
-            /*List<double> val = Services.CalcularPorcentagem();
+            /*
+            string usuarios = @"../../../resources/usuarios.txt";
+            string usuariosSistema = @"../../../resources/usuariosSistema.txt";
 
-            foreach(double value in val)
+            if (!File.Exists(usuariosSistema))
             {
-                Console.WriteLine(value.ToString("p2"));
-            }*/
+                Services.LerUsuariosEspacoConsumido();
+            }
 
-            Services.GerarRelatorio();
-
-            Services.GerarRelatorioHTML();
-
+            Services.GerarRelatorioCompleto(usuarios, "txt");
+            Services.GerarRelatorioCompletoOrdenado(usuarios, "html", 3);
+            */
         }
     }
 }
