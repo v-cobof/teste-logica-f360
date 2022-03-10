@@ -1,3 +1,0 @@
-Default       1515520
-Global       36223221
-Public            174

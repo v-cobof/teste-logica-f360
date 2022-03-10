@@ -8,19 +8,24 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Global\\.nuget\\packages\\": {}
+    "C:\\Users\\Pichau\\.nuget\\packages\\": {},
+    "D:\\VisualStudio\\componentes\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Global\\Desktop\\1.VictorCobo\\c-sharp\\teste-logica-f360\\teste-logica.csproj",
+      "projectUniqueName": "D:\\A. Aulas_e_Projetos\\Dev_Projects\\ws-dotnet\\teste-logica-f360\\teste-logica.csproj",
       "projectName": "teste-logica",
-      "projectPath": "C:\\Users\\Global\\Desktop\\1.VictorCobo\\c-sharp\\teste-logica-f360\\teste-logica.csproj",
-      "packagesPath": "C:\\Users\\Global\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Global\\Desktop\\1.VictorCobo\\c-sharp\\teste-logica-f360\\obj\\",
+      "projectPath": "D:\\A. Aulas_e_Projetos\\Dev_Projects\\ws-dotnet\\teste-logica-f360\\teste-logica.csproj",
+      "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
+      "outputPath": "D:\\A. Aulas_e_Projetos\\Dev_Projects\\ws-dotnet\\teste-logica-f360\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\VisualStudio\\componentes\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Global\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Pichau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -60,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
